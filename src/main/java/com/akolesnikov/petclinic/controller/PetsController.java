@@ -1,5 +1,6 @@
 package com.akolesnikov.petclinic.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,18 +12,19 @@ import java.util.Map;
 @RequestMapping("api/pet")
 public class PetsController {
     @GetMapping("/{id}")
-    public Map<String, String> getPet(@PathVariable String id) {
+    public Map<String, String> findPet(@PathVariable String id) {
         Map<String, String> pet = new HashMap<>();
         pet.put("id", "1");
         pet.put("name", "sharick");
         pet.put("type", "dog");
         pet.put("date", "2020-01-01");
         pet.put("status", "HEALTH");
+
         return pet;
     }
 
     @GetMapping
-    public List<Map<String, String>> getPetList() {
+    public List<Map<String, String>> findAllPets() {
         List<Map<String, String>> petList = new ArrayList<>();
         Map<String, String> dog = new HashMap<>();
         dog.put("id", "1");
@@ -59,9 +61,7 @@ public class PetsController {
     }
 
     @DeleteMapping
-    public Map<String, String> deletePet(@RequestBody Map<String, String> petId) {
-        Map<String, String> message = new HashMap<>();
-        message.put("status", "success");
-        return message;
+    @ResponseStatus(HttpStatus.OK)
+    public void deletePet(@RequestBody Map<String, String> petId) {
     }
 }
